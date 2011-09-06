@@ -842,7 +842,7 @@ class HTTPSConnectionWithTimeout(http.client.HTTPSConnection):
         http.client.HTTPSConnection.__init__(
                 self, host, port=port, key_file=key_file,
                 cert_file=cert_file, timeout=timeout, context=context,
-                check_hostname=True)
+                check_hostname=disable_ssl_certificate_validation ^ True)
 
 
 SCHEME_TO_CONNECTION = {
