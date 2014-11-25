@@ -1,0 +1,21 @@
+language: python
+
+python:
+  - '2.7'
+  - '3.4'
+  - '2.6'
+  - '3.3'
+  - '3.2'
+
+install:
+  - if [[ "${TRAVIS_PYTHON_VERSION:0:1}" == "2" ]]; then
+      wget https://storage.googleapis.com/appengine-sdks/featured/google_appengine_1.9.15.zip;
+      unzip -q google_appengine_1.9.15.zip;
+    fi
+
+script:
+  - cd python${TRAVIS_PYTHON_VERSION:0:1}
+  - python httplib2test.py
+  - if [[ "${TRAVIS_PYTHON_VERSION:0:1}" == "2" ]]; then
+      PYTHONPATH="$PYTHONPATH:../google_appengine" python httplib2test_appengine.py;
+    fi
